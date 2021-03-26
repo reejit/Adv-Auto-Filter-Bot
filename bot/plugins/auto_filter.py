@@ -25,9 +25,9 @@ async def connect(bot: Bot, update):
     group_id = update.chat.id
     text = update.text.split(None, 1)
     
-    x = await bot.get_chat_member(group_id, update.from_user.id)
+    devil = await bot.get_chat_member(group_id, update.from_user.id)
     
-    if x.status == "member":
+    if devil.status == "member":
         return
     
     if len(text) != 2:
@@ -35,13 +35,13 @@ async def connect(bot: Bot, update):
     
     channel_id = int(text[1])
     
-    conn_hist = await db.find_connections(group_id)
+    const = await db.find_connections(group_id)
     
     if conn_hist: #TODO: Better Way!? 
 
-        channel1 = int(conn_hist["channel_ids"]["channel1"]) if conn_hist["channel_ids"]["channel1"] else None
-        channel2 = int(conn_hist["channel_ids"]["channel2"]) if conn_hist["channel_ids"]["channel2"] else None
-        channel3 = int(conn_hist["channel_ids"]["channel3"]) if conn_hist["channel_ids"]["channel3"] else None
+        channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
+        channel2 = int(const["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
+        channel3 = int(const["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
     
     else:
         channel1 = None
@@ -80,7 +80,7 @@ async def connect(bot: Bot, update):
         print(e) 
         await bot.send_message(
             chat_id=group_id,
-            text=f"Make Sure I'm Admin In <code>{channel_id}</code> And Have Permission - `Invite Users via Link`",
+            text=f"Make Sure I am Admin In <code>{channel_id}</code> And Have Permission to invite users via link 🔗",
             parse_mode="html",
             reply_to_message_id=update.message_id
         )
@@ -108,7 +108,7 @@ async def connect(bot: Bot, update):
         
         await bot.send_message(
             chat_id=group_id,
-            text=f"My Userbot `@{user.username}` Cant join Your Channel Make Sure He Is Not Banned There..",
+            text=f"The Userbot **@{user.username}** Cant join Your Channel Make Sure It Is Not Banned There..",
             reply_to_message_id=update.message_id
         )
         return
@@ -128,7 +128,7 @@ async def connect(bot: Bot, update):
     else:
         await bot.send_message(
             chat_id=group_id,
-            text=f"Having Problem While Connecting...Report @CrazyBotsz",
+            text=f"Having Problem While Connecting...Report @devils_network",
             reply_to_message_id=update.message_id
         )
         return
@@ -139,9 +139,9 @@ async def disconnect(bot, update):
     group_id = update.chat.id
     text = update.text.split(None, 1)
     
-    x = await bot.get_chat_member(group_id, update.from_user.id)
+    devil = await bot.get_chat_member(group_id, update.from_user.id)
     
-    if x.status == "member":
+    if devil.status == "member":
         return
     
     if len(text) != 2:
@@ -149,12 +149,12 @@ async def disconnect(bot, update):
     
     channel_id = int(text[1])
     
-    conn_hist = await db.find_connections(group_id)
+    const = await db.find_connections(group_id)
     
     if conn_hist:
-        channel1 = int(conn_hist["channel_ids"]["channel1"]) if conn_hist["channel_ids"]["channel1"] else None
-        channel2 = int(conn_hist["channel_ids"]["channel2"]) if conn_hist["channel_ids"]["channel2"] else None
-        channel3 = int(conn_hist["channel_ids"]["channel3"]) if conn_hist["channel_ids"]["channel3"] else None
+        channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
+        channel2 = int(["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
+        channel3 = int(conn_hist["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
     
     else:
         await bot.send_message(
@@ -208,7 +208,7 @@ async def disconnect(bot, update):
     else:
         await bot.send_message(
             chat_id=group_id,
-            text=f"Having Problem While Disconnecting...Report @CrazyBotsz",
+            text=f"Having Problem While Disconnecting...Report @devils_network",
             reply_to_message_id=update.message_id
         )
         return
@@ -220,18 +220,18 @@ async def delall(bot, update):
 
     x = await bot.get_chat_member(group_id, update.from_user.id)
     
-    if x.status == "creator":
+    if devil.status == "creator":
         pass
     else:
-        print(x.status) 
+        print(devil.status) 
         return
     print("Ok") 
-    conn_hist = await db.find_connections(group_id)
-    print(conn_hist) 
-    if conn_hist:
-        channel1 = int(conn_hist["channel_ids"]["channel1"]) if conn_hist["channel_ids"]["channel1"] else None
-        channel2 = int(conn_hist["channel_ids"]["channel2"]) if conn_hist["channel_ids"]["channel2"] else None
-        channel3 = int(conn_hist["channel_ids"]["channel3"]) if conn_hist["channel_ids"]["channel3"] else None
+    const = await db.find_connections(group_id)
+    print(const) 
+    if const:
+        channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
+        channel2 = int(const["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
+        channel3 = int(const["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
         channels = [channel1, channel2, channel3]
     else:
         return
@@ -274,12 +274,12 @@ async def auto_filter (bot, update):
     
     results = []
 
-    conn_hist = await db.find_connections(group_id)
+    const = await db.find_connections(group_id)
     
-    if conn_hist: # TODO: Better Way!? 😕
-        channel1 = int(conn_hist["channel_ids"]["channel1"]) if conn_hist["channel_ids"]["channel1"] else None
-        channel2 = int(conn_hist["channel_ids"]["channel2"]) if conn_hist["channel_ids"]["channel2"] else None
-        channel3 = int(conn_hist["channel_ids"]["channel3"]) if conn_hist["channel_ids"]["channel3"] else None
+    if const: # TODO: Better Way!? 😕
+        channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
+        channel2 = int(const["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
+        channel3 = int(const["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
         channels = [channel1, channel2, channel3]
     else:
         return
@@ -353,12 +353,14 @@ async def cb_handler(bot, query:CallbackQuery, group=1):
     
     if cb_data == "start":
         buttons = [[
-            InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/AlbertEinstein_TG'),
-            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/AlbertEinsteinTG/Adv-Auto-Filter-Bot')
+            InlineKeyboardButton('My Dev 👨‍🔬', url='t.me/Gym2105'),
+            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/Devilsinc/Auto-Filter-Bot')
         ],[
-            InlineKeyboardButton('Support 🛠', url='https://t.me/CrazyBotszGrp')
+            InlineKeyboardButton('Support 🛠', url='https://t.me/devils_network')
         ],[
             InlineKeyboardButton('Help ⚙', callback_data="help")
+        ],[
+           InlineKeyboardButton('Donate the Coder', url ='https://paypal.me/devilgaurav')
         ]]
     
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -414,7 +416,7 @@ async def cb_handler(bot, query:CallbackQuery, group=1):
         data = cb_data[2].strip()
     
         if int(query.from_user.id) != int(user_id):
-            await query.answer("You Arent Worth To Do That!!",show_alert=True) # Lol😆
+            await query.answer("You Are not to do that!!",show_alert=True) # Lol😆
             return
         else:
             pass
