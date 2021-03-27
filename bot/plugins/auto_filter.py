@@ -224,7 +224,7 @@ async def disconnect(bot, update):
 async def delall(bot, update):
     group_id = update.chat.id
 
-    x = await bot.get_chat_member(group_id, update.from_user.id)
+    devil = await bot.get_chat_member(group_id, update.from_user.id)
     
     if devil.status == "creator":
         pass
