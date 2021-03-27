@@ -1,6 +1,6 @@
 from pyrogram import Client
 from pyrogram import filters
-from pyrogram import Message as message
+from pyrogram.types import Message as message
 
 @Client.on_message(filters.command(["id"]) & (filters.private | filters.group))
 async def showid(client, message):
