@@ -151,10 +151,10 @@ async def disconnect(bot, update):
     
     const = await db.find_connections(group_id)
     
-    if conn_hist:
+    if const:
         channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
-        channel2 = int(["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
-        channel3 = int(conn_hist["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
+        channel2 = int(const["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
+        channel3 = int(const["channel_ids"]["channel3"]) if const["channel_ids"]["channel3"] else None
     
     else:
         await bot.send_message(
