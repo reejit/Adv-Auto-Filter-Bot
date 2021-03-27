@@ -359,7 +359,7 @@ async def cb_handler(bot, query:CallbackQuery, group=1):
     
     if cb_data == "start":
         buttons = [[
-            InlineKeyboardButton('My Dev 👨‍🔬', url='t.me/Gym2105'),
+            InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/Gym2105'),
             InlineKeyboardButton('Source Code 🧾', url ='https://github.com/Devilsinc/Auto-Filter-Bot')
         ],[
             InlineKeyboardButton('Support 🛠', url='https://t.me/devils_network')
