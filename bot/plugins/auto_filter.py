@@ -7,6 +7,10 @@ import time
 import asyncio
 import pyrogram
 
+from pyrogram.types import ChatPermissions
+from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, UsernameNotOccupied, ChatAdminRequired, PeerIdInvalid
+
+
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import UserAlreadyParticipant, FloodWait
@@ -18,6 +22,8 @@ from bot.plugins.database import Database
 
 db = Database () 
 result = []
+
+
 
 @Client.on_message(filters.command("connect") & filters.group)
 async def connect(bot: Bot, update):
@@ -37,7 +43,7 @@ async def connect(bot: Bot, update):
     
     const = await db.find_connections(group_id)
     
-    if conn_hist: #TODO: Better Way!? 
+    if const: #TODO: Better Way!? 
 
         channel1 = int(const["channel_ids"]["channel1"]) if const["channel_ids"]["channel1"] else None
         channel2 = int(const["channel_ids"]["channel2"]) if const["channel_ids"]["channel2"] else None
@@ -51,7 +57,7 @@ async def connect(bot: Bot, update):
     if channel_id in (channel1, channel2, channel3):
         await bot.send_message(
             chat_id=group_id,
-            text="Group Is Aldready Connected With This Channel",
+            text="Group Is Already Connected With This Channel",
             reply_to_message_id=update.message_id
         )
         return
